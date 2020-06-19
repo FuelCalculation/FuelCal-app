@@ -8,7 +8,7 @@
     $host = "mylibrary.cn6fzragcwuf.us-west-1.rds.amazonaws.com";
     $dbusername = "root";
     $dbpassword = "Houston16";
-    $dbname = "librarydatabase";
+    $dbname = "FuelDatabase";
 //echo"4";
     $conn = new mysqli($host, $dbusername, $dbpassword, $dbname); 
     //echo "5";
