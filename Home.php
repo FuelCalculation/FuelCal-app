@@ -105,7 +105,7 @@
   <header>
     <div class = "div">
       <img src = " " atl="logo" class = "logo">
-      <h2> Welcome to the Admin Dashboard</h2>
+      <h2> Welcome to FuelCal-App</h2>
       <nav>
     
             

@@ -39,13 +39,13 @@ else{
     {
        
         $_SESSION['ID'] = $result_array['ID'];
-       
+        
          
         // This is how we'll know the user is logged in
         $_SESSION['logged_in'] = true;
         
         if($_SESSION['ID'] == 'ID')
-            header("location: main.php");
+            header("location: Home.php");
       
         
     }

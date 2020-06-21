@@ -11,7 +11,7 @@
       <nav>
     
             
-      <a href ="#" ><tile><strong>back</strong></tile></a>
+      <a href ="Home.php" ><tile><strong>Back</strong></tile></a>
             <a href ="logout.php" ><tile><strong>Logout</strong></tile></a>
           
 </nav>
