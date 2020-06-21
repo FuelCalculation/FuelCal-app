@@ -69,6 +69,9 @@ while($row2 = mysqli_fetch_array($result2))
 <p>
   		   
              <input type ="Submit" name = "submit" class = "submit" />
+             <div id="center_button">
+    <button onclick="location.href='Fuel_Quote_Form.php'">Back to Home</button>
+</div>
             </p>
             
 

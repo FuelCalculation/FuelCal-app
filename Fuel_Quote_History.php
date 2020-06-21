@@ -24,6 +24,7 @@
 table {
     margin-left:200px;
     width: 80%;
+    height: 100;
   border-collapse: collapse;
 }
 
@@ -119,6 +120,14 @@ body
 
 
 </style>
+<script>
+$(document).ready(function () {
+  $('#dtBasicExample').DataTable({
+    "paging": false // false to disable pagination (or any other option)
+  });
+  $('.dataTables_length').addClass('bs-select');
+});
+</script>
 
 <div class="sidebar">
 <a class="active" href="Fuel_Quote_History.php">Fuel Quote History</a>
@@ -126,42 +135,78 @@ body
               <a href="#"> someting here</a>
               <a href="#"> someting here</a>
             </div>
+<div style="overflow-y: auto; height:400px; ">
+    <table id="dtBasicExample" class="table table-striped">
+        
+    <thead>
+        <tr>
+        <th scope="col">#</th>
+        <th scope="col">Gallons Requested</th>
+        <th scope="col">Delivery Address</th>
+        <th scope="col">Delivery Date</th>
+        <th scope="col">Suggested Price</th>
+        <th scope="col">Total Amount Due</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+        <th scope="row">1</th>
+        <td>something here</td>
+        <td>something here</td>
+        <td>something here</td>
+        <td>something here</td>
+        <td>something here</td>
+        </tr>
+        <tr>
+        <th scope="row">2</th>
+        <td>something here</td>
+        <td>something here</td>
+        <td>something here</td>
+        <td>something here</td>
+        <td>something here</td>
+        </tr>
+        <tr>
+        <th scope="row">3</th>
+        <td>something here</td>
+        <td>something here</td>
+        <td>something here</td>
+        <td>something here</td>
+        <td>something here</td>
+        </tr>
+        <tr>
+        <th scope="row">4</th>
+        <td>something here</td>
+        <td>something here</td>
+        <td>something here</td>
+        <td>something here</td>
+        <td>something here</td>
+        </tr>
+        <tr>
+        <th scope="row">5</th>
+        <td>something here</td>
+        <td>something here</td>
+        <td>something here</td>
+        <td>something here</td>
+        <td>something here</td>
+        </tr>
+        <tr>
+        <th scope="row">6</th>
+        <td>something here</td>
+        <td>something here</td>
+        <td>something here</td>
+        <td>something here</td>
+        <td>something here</td>
+        </tr>
+        <tr>
+        <th scope="row">7</th>
+        <td>something here</td>
+        <td>something here</td>
+        <td>something here</td>
+        <td>something here</td>
+        <td>something here</td>
+        </tr>
+    </tbody>
+    </table>
+ </div>
 
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Gallons Requested</th>
-      <th scope="col">Delivery Address</th>
-      <th scope="col">Delivery Date</th>
-      <th scope="col">Suggested Price</th>
-      <th scope="col">Total Amount Due</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>something here</td>
-      <td>something here</td>
-      <td>something here</td>
-      <td>something here</td>
-      <td>something here</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>something here</td>
-      <td>something here</td>
-      <td>something here</td>
-      <td>something here</td>
-      <td>something here</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>something here</td>
-      <td>something here</td>
-      <td>something here</td>
-      <td>something here</td>
-      <td>something here</td>
-    </tr>
-  </tbody>
-</table>
+ 
