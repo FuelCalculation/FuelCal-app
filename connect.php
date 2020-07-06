@@ -1,10 +1,15 @@
 <?php
 //ECHO "ONE";
 session_start();
-    $ID = $_POST['ID'];
-   
+    $userid = $_POST['userid'];
     $password = $_POST['password'];
-    $confirm = $_POST['password2'];
+    $confirm_password = $_POST['password2'];
+    $Fullname = $_POST['FullName'];
+    $Address1 = $_POST['Address1'];
+    $Address2 = $_POST['Address2'];
+    $City = $_POST['City'];
+    $State = $_POST['State'];
+    $zip = $_POST['zip'];
  
     //echo $position;
     //ECHO "TWO";
@@ -24,16 +29,16 @@ session_start();
     }
     else{
         echo "connect";
-        if($password != $confirm){
+        if($password != $confirm_password){
             $_SESSION['message'] = "Password did not match, Please try again";
-            header("location: error.php");
+            header("location: Register_error.php");
             exit();
         }
         
        
             
-        $SELECT = "SELECT ID FROM Users WHERE ID = ? LIMIT 1";
-        $INSERT = "INSERT INTO Users (ID, Password) VALUES (?, ?)";
+        $SELECT = "SELECT ID FROM Users WHERE UserId = ? LIMIT 1";
+        $INSERT = "INSERT INTO Users (UserId, Password, FullName, Address1, Address2, City, State, ZipCode) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         //ECHO"CHECK2";        
     
    
@@ -41,9 +46,9 @@ session_start();
 
         //Prepare statement
         $stmt = $conn->prepare($SELECT);
-        $stmt->bind_param("i", $ID);
+        $stmt->bind_param("s", $userid);
         $stmt->execute();
-        $stmt->bind_result($ID);
+        $stmt->bind_result($userid);
         $stmt->store_result();
         $rnum = $stmt->num_rows;
 
@@ -51,7 +56,9 @@ session_start();
             $stmt->close();
             $stmt = $conn->prepare($INSERT);
             $hashPassword = password_hash($password, PASSWORD_DEFAULT);
-            $stmt->bind_param("is", $ID, $hashPassword);
+            //$hashPassword2 = password_hash($confirm_password, PASSWORD_DEFAULT);
+
+            $stmt->bind_param("ssssssss", $userid, $hashPassword,$Fullname,$Address1,$Address2,$City,$State,$zip );
             $stmt->execute();
             $stmt->close();
 
@@ -61,8 +68,8 @@ session_start();
         }
         else{
 
-            $_SESSION['message'] = "An Account is Already Associated with this UserID, Please Login";
-            header("location: Register_error.php");
+            $_SESSION['message'] = "An Account is Already Associated with this userid, Please Login";
+            header("location:Register_error.php");
 
 
             
