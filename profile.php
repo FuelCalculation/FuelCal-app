@@ -17,10 +17,6 @@ if (mysqli_connect_error())
 
 $options = "";
 
-while($row2 = mysqli_fetch_array($result2))
-{
-    $options = $options."<option>$row2[State]</option>";
-}
 
 $sessions = $_SESSION['$userid'];
 

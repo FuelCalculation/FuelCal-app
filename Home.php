@@ -19,11 +19,12 @@
     $Texas_location_factor = 0.02;
     $Other_location_factor = 0.04;
     $Rate_History_Factor = 0.01; //not empty
-    $No_History_Rate_Factor = 0.00; //empty
+    $No_History_Rate_Factor = 0; //empty
     $Gallons_Requested_Factor = 0.02;//more than 1000 gallons
-    $Gallons_Requested_Factor2 = 0.03; 
-    $Company_Profit_factor = 0.01;
+    $Gallons_Requested_Factor2 = 0.03; // less than 1000 
+    $Company_Profit_factor = 0.1;
     $SELECT = "SELECT * FROM Users WHERE UserId = ?";
+    $SELECT1 = "SELECT * FROM Fuelquotes WHERE UserId = ?";
     $stmt = $conn->prepare($SELECT);
         $stmt->bind_param("s", $sessions);
         $stmt->execute();
@@ -35,6 +36,18 @@
         $stmt->close();
 
 
+//Prepare statement
+$stmt = $conn->prepare($SELECT1);
+$stmt->bind_param("s", $sessions);
+$stmt->execute();
+//$stmt->bind_result($sessions);
+$stmt->store_result();
+$rnum1 = $stmt->num_rows;
+       
+
+        $stmt->close();
+        
+
 
     if (isset($_POST['price'])) { //Get Quote
 
@@ -43,7 +56,6 @@
         //Prepare statement
         
    /* function Margin_Calculation($email, $Gallons_Requested,$Delivery_Address,$Delivery_Date, $Suggested_Price, $Total_Amount_Due){
-
         $email = escape($email);
         $Gallons_Requested = escape($Gallons_Requested);
         $Delivery_Address = escape($Delivery_Address);
@@ -52,10 +64,10 @@
         $Total_Amount_Due = escape($Total_Amount_Due);*/
 
 
-        if($gallons_requested > 1000){
+      
             if($state == "TX"){
                 //if history is not empty
-                if($rnum > 0){
+                if($rnum1 > 0){
                     if($gallons_requested > 1000){
                         $Margin = $curremt_price_per_gallon * ($Texas_location_factor - $Rate_History_Factor + $Gallons_Requested_Factor + $Company_Profit_factor);
                     }
@@ -65,15 +77,16 @@
                 }
                 else{
                     if($gallons_requested > 1000){
-                        $Margin = $curremt_price_per_gallon * ($Texas_location_factor - $No_History_Rate_Factor+ $Gallons_Requested_Factor + $Company_Profit_factor);
+                        $Margin = $curremt_price_per_gallon * ($Texas_location_factor - $No_History_Rate_Factor+ $Gallons_Requested_Factor+ $Company_Profit_factor);
                     }
                     else{
                         $Margin = $curremt_price_per_gallon * ($Texas_location_factor - $No_History_Rate_Factor+ $Gallons_Requested_Factor2 + $Company_Profit_factor);
                     }
                 }
-            }
+              }
+
             else{
-                if($rnum > 0){
+                if($rnum1 > 0){
                     if($gallons_requested > 1000){
                         $Margin = $curremt_price_per_gallon * ($Other_location_factor - $Rate_History_Factor + $Gallons_Requested_Factor + $Company_Profit_factor);
                     }
@@ -81,6 +94,7 @@
                         $Margin = $curremt_price_per_gallon * ($Other_location_factor - $Rate_History_Factor + $Gallons_Requested_Factor2 + $Company_Profit_factor);
                     }
                 }
+              
                 else{
                     if($gallons_requested > 1000){
                         $Margin = $curremt_price_per_gallon * ($Other_location_factor - $No_History_Rate_Factor+ $Gallons_Requested_Factor + $Company_Profit_factor);
@@ -92,9 +106,9 @@
             
         }
     
-    }
+    
 
-    $Margin = $curremt_price_per_gallon * ($Other_location_factor - $No_History_Rate_Factor+ $Gallons_Requested_Factor2 + $Company_Profit_factor);
+    
         $Suggested_price = $curremt_price_per_gallon + $Margin;
         $Total_Amount_Due = $gallons_requested * $Suggested_price;
 
@@ -192,7 +206,7 @@
               <br>
               <div>
                 <label>Gallon requested</label>
-                <input type="text" name="gallon_requested" value="<?php echo htmlspecialchars($_POST['gallon_requested'] ?? '', ENT_QUOTES); ?>">
+                <input type="text" name="gallon_requested" id="GalReq" onkeyup="manage(this)" value="<?php echo htmlspecialchars($_POST['gallon_requested'] ?? '', ENT_QUOTES); ?>">
                <?php // <input type= "text" name = "gallon_requested" class="input-field" placeholder=" input" required> ?>
                
                 <p>
@@ -222,7 +236,6 @@
 
 <!--
       <button type="submit" name = "price"><strong>Get Quote</strong></button>
-
         <br>
         <button type="submit" name = "submit"><strong>Submit</strong></button>
         </form>
@@ -310,13 +323,21 @@ function toggleText() {
     </div>
   </div>
 
-<button type="submit" name = "price"><strong>Get Quote</strong></button>
+<button type="submit" name = "price" id="GetQuote" disabled><strong>Get Quote</strong></button>
 
 <button type='button' name = '1' id="myBtn" onclick="toggleText()">Show Cart</button>  
 
 
 <script>
-
+function manage(GalReq) {
+        var bt = document.getElementById('GetQuote');
+        if (GalReq.value != '') {
+            bt.disabled = false;
+        }
+        else {
+            bt.disabled = true;
+        }
+    }    
 
 /*
 function getquote() {
@@ -524,6 +545,3 @@ body
 }
 
   </style>
-
-
-
